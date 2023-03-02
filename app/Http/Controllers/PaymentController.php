@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Config;
 use PayPal\Auth\OAuthTokenCredential;
 use PayPal\Rest\ApiContext;
 
+
 class PaymentController extends Controller
 {
     //
@@ -38,9 +39,10 @@ class PaymentController extends Controller
         $transaction = new \PayPal\Api\Transaction();
         $transaction->setAmount($amount);
 
+        $callback=url('status');
         $redirectUrls = new \PayPal\Api\RedirectUrls();
-        $redirectUrls->setReturnUrl("https://example.com/your_redirect_url.html")
-            ->setCancelUrl("https://example.com/your_cancel_url.html");
+        $redirectUrls->setReturnUrl($callback)
+            ->setCancelUrl($callback);
 
         $payment = new \PayPal\Api\Payment();
         $payment->setIntent('sale')
@@ -52,9 +54,9 @@ class PaymentController extends Controller
         // After Step 3
         try {
             $payment->create($this->apiContext);
-            echo $payment;
+            // echo $payment;
 
-            echo "\n\nRedirect user to approval_url: " . $payment->getApprovalLink() . "\n";
+            return redirect()->away($payment->getApprovalLink());
         }
         catch (\PayPal\Exception\PayPalConnectionException $ex) {
             // This will print the detailed information on the exception.
@@ -62,5 +64,9 @@ class PaymentController extends Controller
             echo $ex->getData();
         }
             }
+
+        public function payPalStatus(Request $request){
+            dd($request->all());
+        }
 }
 ?>

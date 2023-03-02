@@ -109,3 +109,5 @@ Route::get('qr/{id}', [carreraController::class , 'qr']);
 
 //Paypal
 Route::get('/paypal/pay', 'App\Http\Controllers\PaymentController@payWithPayPal')->name('paypal');
+Route::get('/paypal/status', 'App\Http\Controllers\PaymentController@payPalStatus')->name('status');
+

@@ -16,6 +16,7 @@
                 <input type="number" name="runner" value="<?php echo $runner ?>" required/>
                 <input type="number" name="id" value="<?php echo $race ?>" required/>
                 <input type="number" name="aseguradora" value="<?php echo $insurance ?>" required/>
+                <input type="number" name="pro" value="<?php echo $pro ?>" required/>
             </div>
           </div>
     </div>

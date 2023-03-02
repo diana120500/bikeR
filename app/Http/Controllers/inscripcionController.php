@@ -17,10 +17,14 @@ class inscripcionController extends Controller
         if (isset($_POST['pagar'])){
             if (request('option')=='si'){
                 $dorsal=random_int(1,300);
+                $aseguradora=$request->aseguradora;
+                if ($request->pro==1){
+                    $aseguradora=NULL;
+                }
                 Inscription::create([
                     'runner_id'=>$request->runner,
                     'race_id'=>$request->id,
-                    'id_insurances'=>$request->aseguradora,
+                    'id_insurances'=>$aseguradora,
                     'dorsal'=> $dorsal,
                     'PayPal_email'=>'',
                     'finish_time'=>NULL
@@ -41,7 +45,8 @@ class inscripcionController extends Controller
             return view('corredor.pago',[
                 'runner' => $request->runner,
                 'race' => $request->id,
-                'insurance' => $request->aseguradora
+                'insurance' => $request->aseguradora,
+                'pro' => $request->pro
             ]);
         }
         

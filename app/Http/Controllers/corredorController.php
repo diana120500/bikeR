@@ -58,16 +58,17 @@ class corredorController extends Controller
                 $As=Insurance::where('name', $nameAs)->first();
                 //hacerlo así si no peta(poner nombre en la ruta!!)
                 
-                if ($pro==0){
+                // if ($pro==0){
                     return redirect()->route('ins',[
                             'runner'=>$runner->id,
                             'id'=> request('id'),
-                            'aseguradora' => $As->id
+                            'aseguradora' => $As->id,
+                            'pro' => $pro
                     ]);
-                }
-                else{
-                    return redirect('/');
-                }
+                // }
+                // else{
+                //     return redirect('/');
+                // }
             }
             else{
                 ?> <script>alert('No se pueden inscribir más corredores')</script> <?php
